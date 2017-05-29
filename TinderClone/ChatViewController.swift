@@ -28,7 +28,7 @@ class ChatViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         currentUserUid = Auth.auth().currentUser?.uid
-        getMatchedUsers()
+       
 
     }
 
@@ -37,26 +37,6 @@ class ChatViewController: UIViewController {
   
     }
     
-    func getMatchedUsers() {
-        Database.database().reference().child("users").child(currentUserGender!).child(currentUserUid!).child("matched").observe(.value, with: { (snapshot) in
-            print(snapshot)
-            
-            if let dictionary = snapshot.value as? [String : Any] {
-                let user = Users(dictionary: dictionary)
-                self.users.append(user)
-                
-                
-            }
-           
-            
-            
-        })
-        
-        
-        
-    }
-    
-  
 
 }
 

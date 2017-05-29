@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     var userGender : String? = "female"
     var users : [Users] = []
     var myGender : String? = "male"
-    var matchedUsers : [String] = []
+   
     
     @IBOutlet weak var tinderView: TinderCard!{
         didSet{
@@ -56,7 +56,6 @@ class ViewController: UIViewController {
         
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let chatController = storyboard.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
-        chatController.matchedUsers = self.matchedUsers
         chatController.currentUserGender = self.myGender
         present(chatController, animated: true, completion: nil)
         
@@ -65,7 +64,6 @@ class ViewController: UIViewController {
     @IBAction func swipeAction(_ sender: UIPanGestureRecognizer) {
         tinderView.wasDragged(gestureRecognizer: sender, superView: view, tinderCard: tinderView)
         if tinderView.presentedAll == true {
-            self.matchedUsers = tinderView.usersUID
             
             let alert = UIAlertController(title: "End of the Game", message: "Sorry, no more users :(", preferredStyle: UIAlertControllerStyle.alert)
             let alertAction = UIAlertAction(title: "Ok", style: .destructive, handler: nil)

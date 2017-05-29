@@ -14,7 +14,7 @@ class TinderCard: UIView {
     var imageUrl : String? = ""
     var userGender : String? = ""
     var currentUserUID : String? = ""
-    var usersUID : [String] = []
+    var userUID : String = ""
     var myGender : String? = ""
     var tinderUsers : [Users] = []
     var index : Int = 0
@@ -82,17 +82,18 @@ class TinderCard: UIView {
                 
             } else if tinderCard.center.x > (self.superview?.bounds.width)! - 100 {
              
+                checkNumberOfCards()
                 if index < tinderUsers.count {
-                    self.usersUID.append(tinderUsers[index].uid!)
                     self.updateFirebase()
                 }
-                checkNumberOfCards()
  
             }
             rotation = CGAffineTransform(rotationAngle: 0)
             stretchAndRotation
                 = rotation.scaledBy(x: 1, y: 1)
             tinderCard.center = CGPoint(x: (self.superview?.bounds.width)!/2, y: (self.superview?.bounds.height)!/2)
+            likeImageView.alpha = 0
+            nopeImageView.alpha = 0
             
         }
         
@@ -107,6 +108,8 @@ class TinderCard: UIView {
             
         }
     }
+    
+    
     
     func getDataFromFirebase() {
         Database.database().reference().child("users").child(userGender!).observe(.childAdded, with: { (snapshot) in
@@ -129,7 +132,7 @@ class TinderCard: UIView {
         self.ageLabel.text = tinderUsers[index].age
         self.nameLabel.text = tinderUsers[index].name
         self.aboutLabel.text = tinderUsers[index].desc
-        
+        self.userUID = tinderUsers[index].uid!
         if let profileURL = tinderUsers[index].imageUrl {
             self.imageView.loadImageUsingCacheWithUrlString(profileURL)
         }
@@ -137,11 +140,10 @@ class TinderCard: UIView {
     }
     
     func updateFirebase() {
+
+        let matchValues = ["matched": self.userUID + currentUserUID!]
         
-        
-        let matchValues = ["matched": self.usersUID]
-        
-        Database.database().reference().child("users").child(myGender!).child(currentUserUID!).updateChildValues(matchValues)
+        Database.database().reference().child("matches").updateChildValues(matchValues)
     }
     
     
