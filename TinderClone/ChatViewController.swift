@@ -38,6 +38,9 @@ class ChatViewController: UIViewController {
   
     }
     
+    @IBAction func backButtonTapped(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
     
     func getChatPartners() {
         Database.database().reference().child("matches").observe(.childAdded, with: { (snapshot) in
@@ -84,6 +87,9 @@ extension ChatViewController : UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let selectedUser = matchedUsers[indexPath.row]
+        guard let convoController = storyboard?.instantiateViewController(withIdentifier: "ConvoViewController") as? ConvoViewController else {return}
+        convoController.chosenUserID = selectedUser.userUID
+        present(convoController, animated: true, completion: nil)
     }
 }

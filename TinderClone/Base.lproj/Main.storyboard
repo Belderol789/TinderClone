@@ -648,9 +648,12 @@
                                     <color key="textColor" red="0.87058823529999996" green="0.20784313730000001" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                                 </textAttributes>
                                 <items>
-                                    <navigationItem title="CHAT" id="2Rx-hs-H8P">
+                                    <navigationItem title="MATCHES" id="2Rx-hs-H8P">
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="qud-7Z-MgY">
                                             <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <connections>
+                                                <action selector="backButtonTapped:" destination="8Lh-Nb-DLx" id="mQY-Cj-5JV"/>
+                                            </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
@@ -701,6 +704,92 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CEG-sm-v2E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-143.19999999999999" y="158.77061469265368"/>
+        </scene>
+        <!--Convo View Controller-->
+        <scene sceneID="GZv-aH-jyJ">
+            <objects>
+                <viewController storyboardIdentifier="ConvoViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RcY-vc-Xx2" customClass="ConvoViewController" customModule="TinderClone" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="kwe-Zn-xiQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="ydh-Vc-9DF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kDf-Fy-SUA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bBs-9k-fJC">
+                                <rect key="frame" x="0.0" y="637" width="301" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mmp-Vz-ZOT">
+                                <rect key="frame" x="298" y="636" width="77" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="77" id="Fra-PW-Gdn"/>
+                                </constraints>
+                                <state key="normal" title="Send">
+                                    <color key="titleColor" red="0.87058823529999996" green="0.20784313730000001" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="sendButtonTapped:" destination="RcY-vc-Xx2" eventType="touchUpInside" id="VDU-aB-v09"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cyG-He-3lA">
+                                <rect key="frame" x="0.0" y="72" width="375" height="557"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="chatCell" id="F2G-Nc-wDt">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="F2G-Nc-wDt" id="sEt-m9-vPo">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ydn-47-6jY">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <color key="textColor" red="0.87058823529999996" green="0.20784313730000001" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
+                                </textAttributes>
+                                <items>
+                                    <navigationItem title="CHAT" id="jYb-S2-XIZ">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="w5C-xN-xyb">
+                                            <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <connections>
+                                                <action selector="backButtonTapped:" destination="RcY-vc-Xx2" id="WD3-64-Iwa"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="bBs-9k-fJC" firstAttribute="top" secondItem="cyG-He-3lA" secondAttribute="bottom" constant="8" symbolic="YES" id="Brg-iC-RZt"/>
+                            <constraint firstItem="ydn-47-6jY" firstAttribute="top" secondItem="kwe-Zn-xiQ" secondAttribute="bottom" constant="8" id="RWx-J3-9VB"/>
+                            <constraint firstItem="bBs-9k-fJC" firstAttribute="bottom" secondItem="ydh-Vc-9DF" secondAttribute="top" id="ZJi-g0-EnK"/>
+                            <constraint firstItem="cyG-He-3lA" firstAttribute="top" secondItem="ydn-47-6jY" secondAttribute="bottom" id="Zgz-dS-c12"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="bBs-9k-fJC" secondAttribute="trailing" constant="58" id="Zwd-3R-6L9"/>
+                            <constraint firstItem="cyG-He-3lA" firstAttribute="leading" secondItem="bBs-9k-fJC" secondAttribute="leading" id="aSw-mk-GVp"/>
+                            <constraint firstAttribute="trailing" secondItem="ydn-47-6jY" secondAttribute="trailing" id="b8o-Ok-bca"/>
+                            <constraint firstItem="ydn-47-6jY" firstAttribute="leading" secondItem="kDf-Fy-SUA" secondAttribute="leading" id="blW-gm-BTq"/>
+                            <constraint firstItem="ydn-47-6jY" firstAttribute="trailing" secondItem="cyG-He-3lA" secondAttribute="trailing" id="lEx-BY-CAr"/>
+                            <constraint firstItem="ydn-47-6jY" firstAttribute="leading" secondItem="cyG-He-3lA" secondAttribute="leading" id="naT-cm-hG1"/>
+                            <constraint firstItem="bBs-9k-fJC" firstAttribute="baseline" secondItem="mmp-Vz-ZOT" secondAttribute="baseline" id="vj4-Ms-s0u"/>
+                            <constraint firstItem="cyG-He-3lA" firstAttribute="trailing" secondItem="mmp-Vz-ZOT" secondAttribute="trailing" id="wyb-T3-dxB"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="chatTextField" destination="bBs-9k-fJC" id="Hpj-ou-CD7"/>
+                        <outlet property="tableView" destination="cyG-He-3lA" id="ATt-WL-sEv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Se-k1-Qpb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="576.79999999999995" y="158.77061469265368"/>
         </scene>
     </scenes>
     <resources>

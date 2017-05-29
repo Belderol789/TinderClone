@@ -43,9 +43,9 @@ class TinderCard: UIView {
     func wasTapped(gestureRecognizer: UITapGestureRecognizer, superView: UIView, tinderCard: TinderCard) {
         
         UIView.animate(withDuration: 0.3, animations: {
-             self.aboutLabel.alpha = 1
+            self.aboutLabel.alpha = 1
         })
-       
+        
     }
     
     func wasDragged(gestureRecognizer: UIPanGestureRecognizer, superView:UIView, tinderCard: TinderCard) {
@@ -56,17 +56,17 @@ class TinderCard: UIView {
         tinderCard.center = CGPoint(x: (self.superview?.bounds.width)!/2 + translation.x, y: (self.superview?.bounds.height)!/2 + translation.y)
         
         let xFromCenter = tinderCard.center.x - (self.superview?.bounds.width)!/1.5
-
+        
         if xFromCenter > 0 {
             likeImageView.image = #imageLiteral(resourceName: "like")
             likeImageView.alpha = abs(xFromCenter) / superView.center.x
-           
+            
         }else{
             nopeImageView.image = #imageLiteral(resourceName: "nope")
             nopeImageView.alpha = abs(xFromCenter) / superView.center.x
-           
+            
         }
-
+        
         var rotation = CGAffineTransform(rotationAngle: xFromCenter/200)
         
         let scale = min(abs(100/xFromCenter), 1)
@@ -77,17 +77,17 @@ class TinderCard: UIView {
         
         if gestureRecognizer.state == .ended {
             if tinderCard.center.x < 100 {
-              
+                
                 checkNumberOfCards()
                 
                 
             } else if tinderCard.center.x > (self.superview?.bounds.width)! - 100 {
-             
+                
                 checkNumberOfCards()
-                if index < tinderUsers.count {
+                if index <= tinderUsers.count {
                     self.updateFirebase()
                 }
- 
+                
             }
             rotation = CGAffineTransform(rotationAngle: 0)
             stretchAndRotation
@@ -99,7 +99,7 @@ class TinderCard: UIView {
         }
         
     }
-
+    
     func checkNumberOfCards() {
         if index < tinderUsers.count {
             updateData(index: index)
@@ -142,8 +142,8 @@ class TinderCard: UIView {
     }
     
     func updateFirebase() {
-
-        let matchValues = ["myID": currentUserUID!, "userUID" : self.userUID, "chat" : "Hey there!", "userImage" : self.userImageUrl, "username" : self.nameLabel.text]
+        
+        let matchValues = ["myID": currentUserUID!, "userUID" : self.userUID, "userImage" : self.userImageUrl, "username" : self.nameLabel.text]
         
         Database.database().reference().child("matches").childByAutoId().updateChildValues(matchValues)
     }
