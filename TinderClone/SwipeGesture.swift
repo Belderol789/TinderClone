@@ -23,12 +23,10 @@ class SwipeGestureHelper {
         card.transform = CGAffineTransform(rotationAngle: xFromCenter/divider).scaledBy(x: scale, y: scale) // for scaling anything less than 1 will make the object smaller
         
         if xFromCenter > 0 {
-            likeImageView.image = #imageLiteral(resourceName: "heart")
-            likeImageView.tintColor = UIColor.green
+            likeImageView.image = #imageLiteral(resourceName: "like")
             likeImageView.alpha = abs(xFromCenter) / superView.center.x
         }else{
-            nopeImageView.image = #imageLiteral(resourceName: "brokenheart")
-            nopeImageView.tintColor = UIColor.red
+            nopeImageView.image = #imageLiteral(resourceName: "nope")
             nopeImageView.alpha = abs(xFromCenter) / superView.center.x
         }
         //thumbImageView.alpha = abs(xFromCenter) / view.center.x
@@ -84,7 +82,7 @@ class SwipeGestureHelper {
         profileView.alpha = 0
         cardView.transform = .identity
         
-        let when = DispatchTime.now() + 0.5
+        let when = DispatchTime.now() 
         superView.sendSubview(toBack: cardView)
         
         if picArray.count != 1 {
@@ -101,7 +99,7 @@ class SwipeGestureHelper {
             if picArray.count > 1 {
                 profileView.image = picArray[1]
             } else {
-                //cardView.removeFromSuperview()
+                cardView.removeFromSuperview()
                 cardView.isHidden = true
             }
             

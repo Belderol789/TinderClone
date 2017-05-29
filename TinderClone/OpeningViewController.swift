@@ -41,25 +41,25 @@ class OpeningViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupScrollView()
-        checkIfUserExist()
+        //checkIfUserExist()
         
         
     }
     
     func checkIfUserExist() {
+        
         if(Auth.auth().currentUser) != nil {
             let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
             let viewController = storyboard.instantiateViewController(withIdentifier: "ViewController")
             present(viewController, animated: true, completion: nil)
+            
         }
     }
     
     @IBAction func loginButtonTapped(_ sender: Any) {
-//        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-//        let loginController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-//        present(loginController, animated: true, completion: nil)
-        
-        
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let loginController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        present(loginController, animated: true, completion: nil)
         
     }
     func setupScrollView() {

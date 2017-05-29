@@ -11,7 +11,7 @@ import FBSDKLoginKit
 import Firebase
 
 extension OpeningViewController : FBSDKLoginButtonDelegate {
-
+    
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
         
         if error != nil {
@@ -47,23 +47,32 @@ extension OpeningViewController : FBSDKLoginButtonDelegate {
                 }
                 
                 if let dictionary = result as? [String : Any] {
-                    
-                    let fbUserName = user!.displayName
                     let fbUserPhotoUrl = "\((user!.photoURL)!)"
-                    let fbUserGender = dictionary["gender"] as? String
-                    let fbUserEmail = dictionary["email"] as? String
-                    guard let FBvalues : [String : Any] = ["name" : fbUserName, "gender" : fbUserGender!, "profileImageUrl" : fbUserPhotoUrl, "email" : fbUserEmail] else {return}
-                    Database.database().reference().child("users").child((user?.uid)!).updateChildValues(FBvalues)
+                    guard let fbUserName = user!.displayName,
+                        let fbUserUID = user?.providerID,
+                        let fbUserGender = dictionary["gender"] as? String,
+                        let fbUserEmail = dictionary["email"] as? String else {return}
+                    let FBvalues : [String : Any] = ["name" : fbUserName, "lookingFor" : "female", "profileImageUrl" : fbUserPhotoUrl, "email" : fbUserEmail, "age" : "22", "desc" : "Hey there", "uid": fbUserUID]
+                    Database.database().reference().child("users").child(fbUserGender).child((user?.uid)!).updateChildValues(FBvalues)
                     
+                    UserDefaults.standard.set(fbUserGender, forKey: "fbGender")
+                    
+                    self.presentViewController(gender: "female")
                 }
                 
-                let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-                let viewController = storyboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
-                self.present(viewController, animated: true, completion: nil)
             }
             
             print("Successfully logged in ", user!)
         })
+        
+    }
+    
+    func presentViewController(gender: String) {
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let viewController = storyboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+        viewController.userGender = gender
+        viewController.myGender = UserDefaults.standard.value(forKey: "fbGender") as! String?
+        self.present(viewController, animated: true, completion: nil)
         
     }
     

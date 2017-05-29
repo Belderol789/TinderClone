@@ -7,9 +7,14 @@
 //
 
 import UIKit
+import Firebase
 
 class ViewController: UIViewController {
     
+    var userGender : String? = ""
+    var users : [Users] = []
+    var myGender : String? = ""
+    var matchedUsers : [String] = []
     
     @IBOutlet weak var nopeImageView: UIImageView!{
         didSet{
@@ -21,94 +26,61 @@ class ViewController: UIViewController {
             likeImageView.alpha = 0
         }
     }
-    @IBOutlet weak var tinderView: UIView!{
+    @IBOutlet weak var tinderView: TinderCard!{
         didSet{
             tinderView.isUserInteractionEnabled = true
             tinderView.layer.cornerRadius = 10
             tinderView.layer.masksToBounds = true
+            tinderView.layer.borderColor = UIColor.lightGray.cgColor
+            tinderView.layer.borderWidth = 1
+            tinderView.userGender = userGender
+            tinderView.currentUserUID = Auth.auth().currentUser?.uid
+            tinderView.myGender = myGender
         }
     }
     
-    var tinderViewArray : [UIView] = []
+    var userImages : [UIImage] = []
     
     var dividor : CGFloat!
     override func viewDidLoad() {
         super.viewDidLoad()
-        dividor = (view.frame.width/2)/0.61
-        addCard()
- 
+       
+        tinderView.getDataFromFirebase()
+        saveUserImages()
+
         
     }
+
+    @IBAction func profileButtonTapped(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let profileController = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+        profileController.currentGender = myGender
+        present(profileController, animated: true, completion: nil)
+    }
     
+    
+    @IBAction func cardWasTapped(_ sender: UITapGestureRecognizer) {
+        tinderView.wasTapped(gestureRecognizer: sender, superView: view, tinderCard: tinderView)
+    }
+ 
     
     @IBAction func swipeAction(_ sender: UIPanGestureRecognizer) {
-        for each in tinderViewArray {
-            each.addGestureRecognizer(sender)
-        }
-        let card = sender.view!
-        let point = sender.translation(in: view)
-        let xFromCenter = card.center.x - view.center.x
-        let scale = min(abs(100/xFromCenter), 1)
-        
-        card.center = CGPoint(x: view.center.x + point.x, y: view.center.y + point.y)
-        card.transform = CGAffineTransform(rotationAngle: xFromCenter/dividor).scaledBy(x: scale, y: scale)
-        
-        if xFromCenter > 0 {
-            likeImageView.image = #imageLiteral(resourceName: "like")
-            likeImageView.alpha = abs(xFromCenter)/view.center.x
+        tinderView.wasDragged(gestureRecognizer: sender, superView: view, tinderCard: tinderView)
+        if tinderView.presentedAll == true {
+            self.matchedUsers = tinderView.usersUID
             
-        } else {
-            nopeImageView.image = #imageLiteral(resourceName: "nope")
-            nopeImageView.alpha = abs(xFromCenter)/view.center.x
-        }
-        
-        if sender.state == .ended {
-            if card.center.x < 75 {
-                UIView.animate(withDuration: 0.2, animations: {
-                    card.center = CGPoint(x: card.center.x - 200, y: card.center.y + 75)
-                    card.alpha = 0
-                    self.addCard()
-                  
-                })
-                
-                return
-            } else if card.center.x > (view.frame.width - 75) {
-                UIView.animate(withDuration: 0.2, animations: {
-                    card.center = CGPoint(x: card.center.x + 200, y: card.center.y + 75)
-                    card.alpha = 0
-                    self.addCard()
-                    
-                })
-                return
-                
-            }
-            
-            centerCard()
-        }
-        
-    }
-    
-   
-    func centerCard() {
-        UIView.animate(withDuration: 0.2) {
-            self.tinderView.center = self.view.center
-            self.nopeImageView.alpha = 0
-            self.likeImageView.alpha = 0
-            self.tinderView.alpha = 1
-            self.tinderView.transform = .identity
+            let alert = UIAlertController(title: "End of the Game", message: "Sorry, no more users :(", preferredStyle: UIAlertControllerStyle.alert)
+            let alertAction = UIAlertAction(title: "Ok", style: .destructive, handler: nil)
+            alert.addAction(alertAction)
+            present(alert, animated: true, completion: nil)
+            return
         }
     }
     
-    func addCard() {
-        
-        self.tinderView.center = self.view.center
-        self.tinderView.transform = .identity
-        for _ in 0...3 {
-            self.tinderViewArray.append(self.tinderView)
-            self.view.addSubview(self.tinderView)
-        }
+    func saveUserImages() {
+        guard let userImage = self.tinderView.imageView.image else {return}
+        self.userImages.append(userImage)
     }
-
-
+    
 }
 

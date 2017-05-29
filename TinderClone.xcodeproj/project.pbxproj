@@ -16,8 +16,12 @@
 		523EC76B1ED9400100B51ACB /* SwipeGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523EC76A1ED9400100B51ACB /* SwipeGesture.swift */; };
 		523EC76D1ED9451B00B51ACB /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523EC76C1ED9451B00B51ACB /* ProfileViewController.swift */; };
 		523EC76F1ED9488C00B51ACB /* loadWithCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523EC76E1ED9488C00B51ACB /* loadWithCache.swift */; };
+		52481EB41EDB217200CD5511 /* TinderCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52481EB31EDB217200CD5511 /* TinderCard.xib */; };
+		52481EB61EDB228500CD5511 /* TinderCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52481EB51EDB228500CD5511 /* TinderCard.swift */; };
+		52481EB81EDB268700CD5511 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52481EB71EDB268700CD5511 /* Users.swift */; };
 		525BFA051ED7D72D00A2E103 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 525BFA041ED7D72D00A2E103 /* GoogleService-Info.plist */; };
 		525BFA0D1ED7E49700A2E103 /* OpeningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525BFA0C1ED7E49700A2E103 /* OpeningViewController.swift */; };
+		52F5CBA01ED9B909002B6B69 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F5CB9F1ED9B909002B6B69 /* EditViewController.swift */; };
 		52F778811ED8521500427BB4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F778801ED8521500427BB4 /* LoginViewController.swift */; };
 		AA8809B5F09CD1D4DBE5DAC0 /* Pods_TinderClone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37849BE78274A2005DBCE407 /* Pods_TinderClone.framework */; };
 /* End PBXBuildFile section */
@@ -36,9 +40,13 @@
 		523EC76A1ED9400100B51ACB /* SwipeGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeGesture.swift; sourceTree = "<group>"; };
 		523EC76C1ED9451B00B51ACB /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		523EC76E1ED9488C00B51ACB /* loadWithCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = loadWithCache.swift; sourceTree = "<group>"; };
+		52481EB31EDB217200CD5511 /* TinderCard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TinderCard.xib; sourceTree = "<group>"; };
+		52481EB51EDB228500CD5511 /* TinderCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TinderCard.swift; sourceTree = "<group>"; };
+		52481EB71EDB268700CD5511 /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		525BFA041ED7D72D00A2E103 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		525BFA0A1ED7DDD800A2E103 /* Base */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Base; path = Base.lproj/cardView.swift; sourceTree = "<group>"; };
 		525BFA0C1ED7E49700A2E103 /* OpeningViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpeningViewController.swift; sourceTree = "<group>"; };
+		52F48CB31EDC314E008BDD08 /* CircularStd-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Bold.otf"; sourceTree = "<group>"; };
+		52F5CB9F1ED9B909002B6B69 /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		52F778801ED8521500427BB4 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		666703A048C52A2A7EC6E84C /* Pods-TinderClone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinderClone.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TinderClone/Pods-TinderClone.debug.xcconfig"; sourceTree = "<group>"; };
 		D4712FE3E41FE86F997BAC56 /* Pods-TinderClone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinderClone.release.xcconfig"; path = "Pods/Target Support Files/Pods-TinderClone/Pods-TinderClone.release.xcconfig"; sourceTree = "<group>"; };
@@ -91,6 +99,7 @@
 			children = (
 				523B8E3F1ECB46B0001F69B5 /* Main.storyboard */,
 				523B8E441ECB46B0001F69B5 /* LaunchScreen.storyboard */,
+				52481EB31EDB217200CD5511 /* TinderCard.xib */,
 			);
 			name = Interface;
 			sourceTree = "<group>";
@@ -101,6 +110,7 @@
 				523B8E421ECB46B0001F69B5 /* Assets.xcassets */,
 				523B8E3B1ECB46B0001F69B5 /* AppDelegate.swift */,
 				525BFA041ED7D72D00A2E103 /* GoogleService-Info.plist */,
+				52F48CB31EDC314E008BDD08 /* CircularStd-Bold.otf */,
 				523B8E471ECB46B0001F69B5 /* Info.plist */,
 			);
 			name = Support;
@@ -113,6 +123,7 @@
 				52F778801ED8521500427BB4 /* LoginViewController.swift */,
 				525BFA0C1ED7E49700A2E103 /* OpeningViewController.swift */,
 				523EC76C1ED9451B00B51ACB /* ProfileViewController.swift */,
+				52F5CB9F1ED9B909002B6B69 /* EditViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -120,10 +131,11 @@
 		525BFA0B1ED7DDE800A2E103 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				525BFA091ED7DDD800A2E103 /* cardView.swift */,
 				52363D061ED89A0D0075B957 /* FacebookLogin.swift */,
 				523EC76A1ED9400100B51ACB /* SwipeGesture.swift */,
 				523EC76E1ED9488C00B51ACB /* loadWithCache.swift */,
+				52481EB51EDB228500CD5511 /* TinderCard.swift */,
+				52481EB71EDB268700CD5511 /* Users.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -214,6 +226,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				523B8E461ECB46B0001F69B5 /* LaunchScreen.storyboard in Resources */,
+				52481EB41EDB217200CD5511 /* TinderCard.xib in Resources */,
 				525BFA051ED7D72D00A2E103 /* GoogleService-Info.plist in Resources */,
 				523B8E431ECB46B0001F69B5 /* Assets.xcassets in Resources */,
 				523B8E411ECB46B0001F69B5 /* Main.storyboard in Resources */,
@@ -278,11 +291,14 @@
 				52F778811ED8521500427BB4 /* LoginViewController.swift in Sources */,
 				525BFA0D1ED7E49700A2E103 /* OpeningViewController.swift in Sources */,
 				523B8E3E1ECB46B0001F69B5 /* ViewController.swift in Sources */,
+				52481EB61EDB228500CD5511 /* TinderCard.swift in Sources */,
 				523B8E3C1ECB46B0001F69B5 /* AppDelegate.swift in Sources */,
 				523EC76D1ED9451B00B51ACB /* ProfileViewController.swift in Sources */,
 				523EC76B1ED9400100B51ACB /* SwipeGesture.swift in Sources */,
 				523EC76F1ED9488C00B51ACB /* loadWithCache.swift in Sources */,
 				52363D071ED89A0D0075B957 /* FacebookLogin.swift in Sources */,
+				52481EB81EDB268700CD5511 /* Users.swift in Sources */,
+				52F5CBA01ED9B909002B6B69 /* EditViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,14 +319,6 @@
 				523B8E451ECB46B0001F69B5 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		525BFA091ED7DDD800A2E103 /* cardView.swift */ = {
-			isa = PBXVariantGroup;
-			children = (
-				525BFA0A1ED7DDD800A2E103 /* Base */,
-			);
-			name = cardView.swift;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -13,11 +13,13 @@ import FBSDKLoginKit
 
 class LoginViewController: UIViewController {
     
-    
+    var myGender : String? = ""
+
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var button: UIButton!{
+    @IBOutlet weak var button: UIButton!
+        {
         didSet{
-            button.addTarget(self, action: #selector(login), for: .touchUpInside)
+            button.addTarget(self, action: #selector(loginOrSignup), for: .touchUpInside)
         }
     }
     @IBOutlet weak var segmentedControl: UISegmentedControl!
@@ -46,6 +48,7 @@ class LoginViewController: UIViewController {
             nameTextField.layer.borderWidth = 2
         }
     }
+    
     @IBOutlet weak var genderSwitch: UISwitch!{
         didSet{
             genderSwitch.alpha = 0
@@ -77,8 +80,9 @@ class LoginViewController: UIViewController {
             nameTextField.isUserInteractionEnabled = false
             ageTextField.alpha = 0
             ageTextField.isUserInteractionEnabled = false
+     
             button.setTitle("LOGIN", for: .normal)
-            button.addTarget(self, action: #selector(login), for: .touchUpInside)
+            button.addTarget(self, action: #selector(loginOrSignup), for: .touchUpInside)
             break
         case 1:
             genderLabel.alpha = 1
@@ -89,8 +93,9 @@ class LoginViewController: UIViewController {
             nameTextField.isUserInteractionEnabled = true
             ageTextField.alpha = 1
             ageTextField.isUserInteractionEnabled = true
+          
             button.setTitle("SIGNUP", for: .normal)
-            button.addTarget(self, action: #selector(signup), for: .touchUpInside)
+            button.addTarget(self, action: #selector(loginOrSignup), for: .touchUpInside)
             break
         default:
             break
@@ -100,9 +105,11 @@ class LoginViewController: UIViewController {
     
     @IBAction func genderSwitchAction(_ sender: UISwitch) {
         if (sender.isOn == true) {
-            genderLabel.text = "Female"
+            genderLabel.text = "female"
+            myGender = "male"
         } else {
-            genderLabel.text = "Male"
+            genderLabel.text = "male"
+            myGender = "female"
         }
     }
     
@@ -115,20 +122,33 @@ class LoginViewController: UIViewController {
 
     }
     
+    func loginOrSignup() {
+        if button.title(for: .normal) == "LOGIN" {
+            button.removeTarget(self, action: #selector(signup), for: .touchUpOutside)
+            login()
+        } else {
+            button.removeTarget(self, action: #selector(login), for: .touchUpOutside)
+            signup()
+        }
+    }
+    
     
     func login() {
-//        if emailLogin.text != "" && passwordLogin.text != "" {
-//            Auth.auth().signIn(withEmail: emailLogin.text!, password: passwordLogin.text!, completion: { (user, error) in
-//                if error != nil {
-//                    let alert = UIAlertController(title: "Error logging in", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
-//                    let alertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.destructive, handler: nil)
-//                    alert.addAction(alertAction)
-//                    self.present(alert, animated: true, completion: nil)
-//                } else {
-//                    self.goToPage(page: "ViewController")
-//                }
-//            })
-//        }
+        
+        if emailLogin.text != "" && passwordLogin.text != "" {
+            Auth.auth().signIn(withEmail: emailLogin.text!, password: passwordLogin.text!, completion: { (user, error) in
+                if error != nil {
+                    let alert = UIAlertController(title: "Error logging in", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                    let alertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.destructive, handler: nil)
+                    alert.addAction(alertAction)
+                    self.present(alert, animated: true, completion: nil)
+                } else {
+                    let viewController = UIStoryboard(name: "Main", bundle:nil).instantiateViewController(withIdentifier: "ViewController") as! ViewController
+                    viewController.userGender = self.genderLabel.text
+                    self.present(viewController, animated: true, completion: nil)
+                }
+            })
+        }
         
     }
     
@@ -154,7 +174,7 @@ class LoginViewController: UIViewController {
                             return
                         }
                         if let profileImageUrl = metadata?.downloadURL()?.absoluteString {
-                            let values = ["name": self.nameTextField.text!, "email": self.emailLogin.text!, "profileImageUrl": profileImageUrl, "uid" : (user?.uid)!, "gender" : self.genderLabel.text!, "age": self.ageTextField.text!]
+                            let values = ["name": self.nameTextField.text!, "email": self.emailLogin.text!, "profileImageUrl": profileImageUrl, "uid" : (user?.uid)!, "lookingFor" : self.genderLabel.text!, "age": self.ageTextField.text!, "desc" : "Hi there!"]
                             self.registerUserIntoDatabaseWithUID((user?.uid)!, values: values as [String : AnyObject])
                         }
                     })
@@ -166,7 +186,7 @@ class LoginViewController: UIViewController {
     
         private func registerUserIntoDatabaseWithUID(_ uid: String, values: [String: AnyObject]) {
             let ref = Database.database().reference()
-            let usersReference = ref.child("users").child(uid)
+            let usersReference = ref.child("users").child(self.myGender!).child(uid)
             
             usersReference.updateChildValues(values, withCompletionBlock: { (err, ref) in
                 
@@ -175,19 +195,12 @@ class LoginViewController: UIViewController {
                     return
                 }
                 
-                self.goToPage(page: "ViewController")
+                let viewController = UIStoryboard(name: "Main", bundle:nil).instantiateViewController(withIdentifier: "ViewController") as! ViewController
+                viewController.userGender = self.genderLabel.text
+                viewController.myGender = self.myGender
+                self.present(viewController, animated: true, completion: nil)
                 
             })
         }
-    
-    
-    func goToPage(page: String) {
-        let gameScene = UIStoryboard(name: "Main", bundle:nil).instantiateViewController(withIdentifier: page) as UIViewController
-        present(gameScene, animated: true, completion: nil)
-    }
-
-    
-
-   
-
+ 
 }
