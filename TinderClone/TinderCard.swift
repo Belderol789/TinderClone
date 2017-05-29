@@ -14,6 +14,7 @@ class TinderCard: UIView {
     var imageUrl : String? = ""
     var userGender : String? = ""
     var currentUserUID : String? = ""
+    var userImageUrl : String? = ""
     var userUID : String = ""
     var myGender : String? = ""
     var tinderUsers : [Users] = []
@@ -133,6 +134,7 @@ class TinderCard: UIView {
         self.nameLabel.text = tinderUsers[index].name
         self.aboutLabel.text = tinderUsers[index].desc
         self.userUID = tinderUsers[index].uid!
+        self.userImageUrl = tinderUsers[index].imageUrl
         if let profileURL = tinderUsers[index].imageUrl {
             self.imageView.loadImageUsingCacheWithUrlString(profileURL)
         }
@@ -141,9 +143,9 @@ class TinderCard: UIView {
     
     func updateFirebase() {
 
-        let matchValues = ["matched": self.userUID + currentUserUID!]
+        let matchValues = ["myID": currentUserUID!, "userUID" : self.userUID, "chat" : "Hey there!", "userImage" : self.userImageUrl, "username" : self.nameLabel.text]
         
-        Database.database().reference().child("matches").updateChildValues(matchValues)
+        Database.database().reference().child("matches").childByAutoId().updateChildValues(matchValues)
     }
     
     

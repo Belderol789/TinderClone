@@ -21,6 +21,7 @@
 		52481EB81EDB268700CD5511 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52481EB71EDB268700CD5511 /* Users.swift */; };
 		525BFA051ED7D72D00A2E103 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 525BFA041ED7D72D00A2E103 /* GoogleService-Info.plist */; };
 		525BFA0D1ED7E49700A2E103 /* OpeningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525BFA0C1ED7E49700A2E103 /* OpeningViewController.swift */; };
+		52B7131D1EDC5FE300DAE861 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B7131C1EDC5FE300DAE861 /* Chat.swift */; };
 		52F3D2231EDC50D000471F52 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F3D2221EDC50D000471F52 /* ChatViewController.swift */; };
 		52F5CBA01ED9B909002B6B69 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F5CB9F1ED9B909002B6B69 /* EditViewController.swift */; };
 		52F778811ED8521500427BB4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F778801ED8521500427BB4 /* LoginViewController.swift */; };
@@ -46,6 +47,7 @@
 		52481EB71EDB268700CD5511 /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		525BFA041ED7D72D00A2E103 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		525BFA0C1ED7E49700A2E103 /* OpeningViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpeningViewController.swift; sourceTree = "<group>"; };
+		52B7131C1EDC5FE300DAE861 /* Chat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		52F3D2221EDC50D000471F52 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		52F48CB31EDC314E008BDD08 /* CircularStd-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Bold.otf"; sourceTree = "<group>"; };
 		52F5CB9F1ED9B909002B6B69 /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				52363D061ED89A0D0075B957 /* FacebookLogin.swift */,
+				52B7131C1EDC5FE300DAE861 /* Chat.swift */,
 				523EC76A1ED9400100B51ACB /* SwipeGesture.swift */,
 				523EC76E1ED9488C00B51ACB /* loadWithCache.swift */,
 				52481EB51EDB228500CD5511 /* TinderCard.swift */,
@@ -291,6 +294,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52B7131D1EDC5FE300DAE861 /* Chat.swift in Sources */,
 				52F778811ED8521500427BB4 /* LoginViewController.swift in Sources */,
 				525BFA0D1ED7E49700A2E103 /* OpeningViewController.swift in Sources */,
 				523B8E3E1ECB46B0001F69B5 /* ViewController.swift in Sources */,

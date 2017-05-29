@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     var userGender : String? = "female"
     var users : [Users] = []
     var myGender : String? = "male"
+    var userID : String? = ""
    
     
     @IBOutlet weak var tinderView: TinderCard!{
