@@ -11,28 +11,17 @@ import Firebase
 
 class ViewController: UIViewController {
     
-    var userGender : String? = ""
+    var userGender : String? = "female"
     var users : [Users] = []
-    var myGender : String? = ""
+    var myGender : String? = "male"
     var matchedUsers : [String] = []
     
-    @IBOutlet weak var nopeImageView: UIImageView!{
-        didSet{
-            nopeImageView.alpha = 0
-        }
-    }
-    @IBOutlet weak var likeImageView: UIImageView!{
-        didSet{
-            likeImageView.alpha = 0
-        }
-    }
     @IBOutlet weak var tinderView: TinderCard!{
         didSet{
             tinderView.isUserInteractionEnabled = true
             tinderView.layer.cornerRadius = 10
             tinderView.layer.masksToBounds = true
-            tinderView.layer.borderColor = UIColor.lightGray.cgColor
-            tinderView.layer.borderWidth = 1
+           
             tinderView.userGender = userGender
             tinderView.currentUserUID = Auth.auth().currentUser?.uid
             tinderView.myGender = myGender
@@ -63,6 +52,15 @@ class ViewController: UIViewController {
         tinderView.wasTapped(gestureRecognizer: sender, superView: view, tinderCard: tinderView)
     }
  
+    @IBAction func chatWasTapped(_ sender: Any) {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let chatController = storyboard.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
+        chatController.matchedUsers = self.matchedUsers
+        chatController.currentUserGender = self.myGender
+        present(chatController, animated: true, completion: nil)
+        
+    }
     
     @IBAction func swipeAction(_ sender: UIPanGestureRecognizer) {
         tinderView.wasDragged(gestureRecognizer: sender, superView: view, tinderCard: tinderView)

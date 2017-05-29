@@ -13,7 +13,8 @@ import FBSDKLoginKit
 
 class LoginViewController: UIViewController {
     
-    var myGender : String? = ""
+    var myGender : String? = "female"
+    var uid : String? = ""
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var button: UIButton!
@@ -67,6 +68,11 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var genderLabel: UILabel!{
         didSet{
             genderLabel.alpha = 0
+            if myGender == "female" {
+                genderLabel.text = "male"
+            } else {
+                genderLabel.text = "female"
+            }
         }
     }
     @IBAction func segmentedControlTapped(_ sender: Any) {
@@ -145,6 +151,7 @@ class LoginViewController: UIViewController {
                 } else {
                     let viewController = UIStoryboard(name: "Main", bundle:nil).instantiateViewController(withIdentifier: "ViewController") as! ViewController
                     viewController.userGender = self.genderLabel.text
+                    viewController.myGender = self.myGender
                     self.present(viewController, animated: true, completion: nil)
                 }
             })
@@ -174,8 +181,11 @@ class LoginViewController: UIViewController {
                             return
                         }
                         if let profileImageUrl = metadata?.downloadURL()?.absoluteString {
-                            let values = ["name": self.nameTextField.text!, "email": self.emailLogin.text!, "profileImageUrl": profileImageUrl, "uid" : (user?.uid)!, "lookingFor" : self.genderLabel.text!, "age": self.ageTextField.text!, "desc" : "Hi there!"]
+                            let values = ["name": self.nameTextField.text!, "email": self.emailLogin.text!, "profileImageUrl": profileImageUrl, "uid" : (user?.uid)!, "lookingFor" : self.genderLabel.text!, "age": self.ageTextField.text!, "desc" : "Hi there!", "gender" : self.myGender]
+                            
+                            self.uid = user?.uid
                             self.registerUserIntoDatabaseWithUID((user?.uid)!, values: values as [String : AnyObject])
+                            self.handleImage()
                         }
                     })
                 }
@@ -202,5 +212,81 @@ class LoginViewController: UIViewController {
                 
             })
         }
+    
+    
+    func uploadImage(_ image: UIImage) {
+        let userEmail = Auth.auth().currentUser?.email
+        let ref = Storage.storage().reference().child("profile_images").child("\(userEmail).jpg")
+        guard let imageData = UIImageJPEGRepresentation(image, 0.5) else {return}
+        let metaData = StorageMetadata()
+        metaData.contentType = "image/jpeg"
+        ref.putData(imageData, metadata: nil, completion: { (meta, error) in
+            
+            if let downloadPath = meta?.downloadURL()?.absoluteString {
+                
+                self.saveImagePath(downloadPath)
+            }
+            
+        })
+        
+        
+    }
+    
+    func saveImagePath(_ path: String) {
+        
+        let profilePictureValue : [String: Any] = ["profileImageUrl": path]
+        
+        Database.database().reference().child("users").child(myGender!).child(uid!).updateChildValues(profilePictureValue)
+    }
+    
+    func handleImage(){
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(chooseProfileImage))
+        imageView.addGestureRecognizer(tap)
+        
+    }
+    
+    func chooseProfileImage(){
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        present(picker, animated: true, completion: nil)
+    }
+    
+
  
 }
+
+
+
+extension LoginViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController)
+    {
+        print("User canceled out of picker")
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])
+    {
+        var selectedImageFromPicker: UIImage?
+        if let editedImage = info["UIImagePickerControllerEditedImage"] as? UIImage
+        {
+            selectedImageFromPicker = editedImage
+            
+        } else if let originalImage = info["UIImagePickerControllerOriginalImage"] as? UIImage
+        {
+            selectedImageFromPicker = originalImage
+        }
+        
+        if let selectedImage = selectedImageFromPicker
+        {
+            imageView.image = selectedImage
+            uploadImage(selectedImage)
+        }
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+}
+

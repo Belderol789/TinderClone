@@ -35,7 +35,7 @@ class EditViewController: UIViewController {
     }
     @IBOutlet weak var aboutAndNameLabel: UILabel!{
         didSet{
-            aboutAndNameLabel.text = "About \(userName)"
+            aboutAndNameLabel.text = "About \(userName!)"
         }
     }
     @IBOutlet weak var genderLabel: UILabel!

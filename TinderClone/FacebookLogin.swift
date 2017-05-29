@@ -52,7 +52,7 @@ extension OpeningViewController : FBSDKLoginButtonDelegate {
                         let fbUserUID = user?.providerID,
                         let fbUserGender = dictionary["gender"] as? String,
                         let fbUserEmail = dictionary["email"] as? String else {return}
-                    let FBvalues : [String : Any] = ["name" : fbUserName, "lookingFor" : "female", "profileImageUrl" : fbUserPhotoUrl, "email" : fbUserEmail, "age" : "22", "desc" : "Hey there", "uid": fbUserUID]
+                    let FBvalues : [String : Any] = ["name" : fbUserName, "lookingFor" : "female", "profileImageUrl" : fbUserPhotoUrl, "email" : fbUserEmail, "age" : "22", "desc" : "Hey there", "uid": fbUserUID, "gender" : fbUserGender]
                     Database.database().reference().child("users").child(fbUserGender).child((user?.uid)!).updateChildValues(FBvalues)
                     
                     UserDefaults.standard.set(fbUserGender, forKey: "fbGender")

@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import FBSDKLoginKit
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, UIScrollViewDelegate {
     
     
     var profileImage : String? = ""
@@ -56,6 +56,26 @@ class ProfileViewController: UIViewController {
     
     func animateBackground() {
         Timer.scheduledTimer(timeInterval: 4, target: self, selector: #selector(moveToNextPage), userInfo: nil, repeats: true)
+        let scrollViewWidth:CGFloat = self.scrollView.frame.width
+        let scrollViewHeight:CGFloat = self.scrollView.frame.height
+        let imgOne = UIImageView(frame: CGRect(x:0, y:0,width:scrollViewWidth, height:scrollViewHeight))
+        imgOne.image = #imageLiteral(resourceName: "image4")
+        imgOne.contentMode = UIViewContentMode.scaleAspectFit
+        let imgTwo = UIImageView(frame: CGRect(x:scrollViewWidth, y:0,width:scrollViewWidth, height:scrollViewHeight))
+        imgTwo.image = #imageLiteral(resourceName: "image2")
+        imgTwo.contentMode = UIViewContentMode.scaleAspectFit
+        let imgThree = UIImageView(frame: CGRect(x:scrollViewWidth*2, y:0,width:scrollViewWidth, height:scrollViewHeight))
+        imgThree.image = #imageLiteral(resourceName: "image3")
+        imgThree.contentMode = UIViewContentMode.scaleAspectFit
+        let imgFour = UIImageView(frame: CGRect(x:scrollViewWidth*3, y:0,width:scrollViewWidth, height:scrollViewHeight))
+        imgFour.image = #imageLiteral(resourceName: "image2")
+        imgFour.contentMode = UIViewContentMode.scaleAspectFit
+        self.scrollView.addSubview(imgOne)
+        self.scrollView.addSubview(imgTwo)
+        self.scrollView.addSubview(imgThree)
+        self.scrollView.addSubview(imgFour)
+        self.scrollView.contentSize = CGSize(width:self.scrollView.frame.width * 4, height:self.scrollView.frame.height)
+        self.scrollView.delegate = self
     }
     
     func moveToNextPage() {
@@ -74,6 +94,7 @@ class ProfileViewController: UIViewController {
         let currentPage = self.pageControl.currentPage
         if Int(currentPage) == 0{
             textLabel.text = "Find your match today!"
+            
         }else if Int(currentPage) == 1{
             textLabel.text = "Get Tinder Plus and have Unlimited Matching!"
         }else if Int(currentPage) == 2{
@@ -108,7 +129,7 @@ class ProfileViewController: UIViewController {
             func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
                 print("User logged out")
             }
-
+            
         } catch let logoutError {
             print(logoutError)
         }

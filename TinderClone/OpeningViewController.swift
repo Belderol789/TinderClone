@@ -41,7 +41,7 @@ class OpeningViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupScrollView()
-        //checkIfUserExist()
+        checkIfUserExist()
         
         
     }
@@ -70,13 +70,17 @@ class OpeningViewController: UIViewController {
         textLabel.text = "Discover new and interesting people nearby"
         textLabel.textColor = .black
         let imgOne = UIImageView(frame: CGRect(x:0, y:0,width:scrollViewWidth, height:scrollViewHeight))
-        imgOne.image = UIImage(named: "image1")
+        imgOne.image = UIImage(named: "Discover")
+        imgOne.contentMode = UIViewContentMode.scaleAspectFill
         let imgTwo = UIImageView(frame: CGRect(x:scrollViewWidth, y:0,width:scrollViewWidth, height:scrollViewHeight))
-        imgTwo.image = UIImage(named: "image1")
+        imgTwo.image = UIImage(named: "SwipeRight")
+        imgTwo.contentMode = UIViewContentMode.scaleAspectFill
         let imgThree = UIImageView(frame: CGRect(x:scrollViewWidth*2, y:0,width:scrollViewWidth, height:scrollViewHeight))
-        imgThree.image = UIImage(named: "image1")
+        imgThree.image = UIImage(named: "itsAMatch")
+        imgThree.contentMode = UIViewContentMode.scaleAspectFill
         let imgFour = UIImageView(frame: CGRect(x:scrollViewWidth*3, y:0,width:scrollViewWidth, height:scrollViewHeight))
-        imgFour.image = UIImage(named: "image1")
+        imgFour.image = UIImage(named: "Message")
+        imgFour.contentMode = UIViewContentMode.scaleAspectFill
         self.scrollView.addSubview(imgOne)
         self.scrollView.addSubview(imgTwo)
         self.scrollView.addSubview(imgThree)
